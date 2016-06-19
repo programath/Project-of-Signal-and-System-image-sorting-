@@ -1,7 +1,7 @@
-function s=findshortest(list,framematrix)
+function s=findshortest(list,framematrix,start,ending)
 maxvalue=0;
 s=[];
-s(1)=6;
+s(1)=start;
 used=zeros(1,48);
 used(6)=1;
 caculatemin(s,list{s(1)});
@@ -9,7 +9,7 @@ caculatemin(s,list{s(1)});
 function []=caculatemin(arr,candi)
     if size(arr,2)==46
        for k=1:size(candi,2)
-           if used(candi(k))==0 && candi(k)==10
+           if used(candi(k))==0 && candi(k)==ending
                 arr=[arr,candi(k)];
                 value = 0;
                 for l=1:size(arr,2)-1

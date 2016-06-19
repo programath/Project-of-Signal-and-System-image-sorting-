@@ -10,4 +10,4 @@ for i=2:size(arr,2)
         difarr(count)=arr(i);
     end 
 end
-difarr=[difarr,3186];
+difarr=[difarr,size(dif,2)+1];

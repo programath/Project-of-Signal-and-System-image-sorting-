@@ -9,17 +9,17 @@ for i=1:totalnum
     ending =cell{i}(min(size(cell{i},2),30));
     for k=1:4
         if k==1
-            filename=sprintf('%d.jpg',start); 
+            filename=sprintf('..\\%d.jpg',start); 
         end
         if k==2
-            filename=sprintf('%d.jpg',ending1);
+            filename=sprintf('..\\%d.jpg',ending1);
         end
         if k==3
-            filename=sprintf('%d.jpg',ending2);
+            filename=sprintf('..\\%d.jpg',ending2);
         end
         
         if k==4
-            filename=sprintf('%d.jpg',ending);
+            filename=sprintf('..\\%d.jpg',ending);
         end
         p1=imread(filename);
         frameGray=rgb2gray(p1);

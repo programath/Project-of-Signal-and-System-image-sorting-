@@ -1,18 +1,21 @@
 function [framearray,dif]=greedy2()
 %%
-earth=zeros(4800,3186);
-framearray=zeros(1,3186);
-dif=zeros(1,3185);
-for i=1:3186
-    filepath = sprintf('%d.jpg',i);
+totalnum=3186;
+width=80;
+height=60;
+earth=zeros(width*height,totalnum);
+framearray=zeros(1,totalnum);
+dif=zeros(1,totalnum-1);
+for i=1:totalnum
+    filepath = sprintf('..\\%d.jpg',i);
     patch = imread(filepath);
-    patch=imresize(patch,[60,80]);
+    patch=imresize(patch,[height,width]);
     graysmpatch=rgb2gray(patch);
     graysmpatch=double(graysmpatch);
     graysmpatch=graysmpatch./255;
     earth(:,i)=reshape(graysmpatch,size(graysmpatch,1)*size(graysmpatch,2),1);
 end
-covtotal=zeros(3186,3186);
+covtotal=zeros(totalnum);
 for i=1:size(earth,2)
     for j=1:i
         covtotal(i,j)=norm(earth(:,i)-earth(:,j),1)/size(earth,1);
@@ -26,7 +29,7 @@ covtmp=cov;
 cnt=1;
 cellarr{cnt}=[];
 totalsize=0;
-while (totalsize<3186)
+while (totalsize<totalnum)
     link=[];
     i=1;
     while cov(i,1)==-1 
@@ -63,7 +66,7 @@ while (totalsize<3186)
             end
         end
         
-        if max(max1,max2) < 0.4
+        if max(max1,max2) < 0.4 % mean that the jump of these two picture is too large, start a new capture!
             
             break;
         else
@@ -113,12 +116,13 @@ end
 for k=1:totalcount-1
     dif(k)=covtmp(framearray(k),framearray(k+1));
 end
+end
 
 
 % for k=1:totalcount
-%     filename=sprintf('%d.jpg',framearray(k));
+%     filename=sprintf('..\\%d.jpg',framearray(k));
 %     pthes=imread(filename);
-%     filename=sprintf('sorted\\%d_%d.jpg',k,framearray(k));
+%     filename=sprintf('..\\sorted\\%d_%d.jpg',k,framearray(k));
 %     imwrite(pthes,filename,'jpg');
 % end
     
